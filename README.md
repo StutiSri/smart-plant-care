@@ -214,3 +214,8 @@ In this tutorial, you learned how to:
 - In a web page, display device data in a chart
 
 > Note: remember to delete any Azure resources created during this sample to avoid unnecessary charges.
+
+
+az group create --name <rg-name> --location <location>
+
+az deployment group create --name plant-care-infra-deployment --resource-group rg-plant-care --template-file deployment/azuredeploy.json --parameters iotHubName="Plant-Care-IOT-Hub" webAppName="plant-care" location="eastus2" branchName="stsrivastava/water-the-plant"

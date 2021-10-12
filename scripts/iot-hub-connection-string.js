@@ -33,6 +33,9 @@ function generateSasToken(resourceUri, signingKey, policyName, expiresInMins) {
  * `"Endpoint=sb://<hostname>;EntityPath=<your-iot-hub>;SharedAccessKeyName=<KeyName>;SharedAccessKey=<Key>"`
  */
 async function convertIotHubToEventHubsConnectionString(connectionString) {
+    if(connectionString.includes("Endpoint")) {
+        return connectionString;
+    }
     const { HostName, SharedAccessKeyName, SharedAccessKey } = parseConnectionString(
         connectionString
     );
@@ -90,7 +93,9 @@ async function convertIotHubToEventHubsConnectionString(connectionString) {
                     reject(Error(msg));
                 } else {
                     const entityPath = parsedAddress[1];
-                    resolve(`Endpoint=sb://${hostname}/;EntityPath=${entityPath};SharedAccessKeyName=${SharedAccessKeyName};SharedAccessKey=${SharedAccessKey}`);
+                    var endpoint = `Endpoint=sb://${hostname}/;EntityPath=${entityPath};SharedAccessKeyName=${SharedAccessKeyName};SharedAccessKey=${SharedAccessKey}`
+                    console.log("endpoint - " + endpoint)
+                    resolve(endpoint);
                 }
             } else {
                 reject(error);
