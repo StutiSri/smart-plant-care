@@ -1,3 +1,132 @@
+
+.modalcls {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 2px solid #07ad90;
+  z-index: 10;
+  background-color: white;
+  width: 400px;
+  max-width: 60%;
+}
+
+.modalcls.active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.login-header {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.login-header .title {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.login-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.login-form {
+  padding: 10px 15px;
+  margin-top: 0.5em;
+  align-items: center;
+}
+
+.form {
+  align-items: center;
+}
+
+.form-input label {
+    position: absolute;
+    pointer-events: none;
+    font-size: 1.5em;
+    top: 60%;
+    left: 0;
+    transform: translateY(-50%);
+    transition: all ease-in 0.25s;
+    color: lighten(#666, 20%);
+  }
+
+.form-input input[type="text"], input[type="password"], input[type="submit"], textarea{
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-input input[type="text"], input[type="password"], textarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  line-height: 2.5em;
+  border-bottom: 1px solid #07ad90;
+  color: #666;
+}
+
+.form-input input[type="submit"] {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  width: 100%;
+  background: #07ad90;;
+  line-height: 2em;
+  color: #fff;
+  border: 1px solid #07ad90;
+  border-radius: 3px;
+  padding: 20px/4;
+}
+
+.form-input textarea{
+  resize: none;
+  line-height: 1em;
+  }
+
+.form-input textarea :focus, :not(:placeholder-shown) label{
+  top: -25%;
+}
+
+.confirm-water-the-plant {
+  padding-top: 20px;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  pointer-events: none;
+}
+
+#overlay.active {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.creds-error {
+  visibility: none;
+  opacity: 0;
+}
+
+.creds-error.active {
+  visibility: visible;
+  opacity: 1;
+}
+
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   padding: 50px;
@@ -77,6 +206,22 @@ body {
   color: white;
   width: 100%;
   height: 100%;
+}
+
+.success-message {
+  padding: 20px;
+  background-color: #07ad90;
+  color: white;
+  width: 100%;
+  height: 100%;
+  font-size: 25px;
+  transform: scale(0);
+  display: none;
+}
+
+.success-message.active {
+  transform: scale(1);
+  display: block;
 }
 
 .closebtn {

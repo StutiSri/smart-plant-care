@@ -18,19 +18,52 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/gauge-chart@latest/dist/bundle.js"></script>
     <link href="css/style.css" rel="stylesheet" />
-
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
     <title>Moisture &amp; Luminosity Real-time Data</title>
 </head>
 
 <body style="background-image: url('images/backgrnd.jpg')">
-   
+
     <div class="alert" id="alert1" style="visibility: hidden;">
-        <span class="closebtn" onclick="this.style.visibility='hidden'; this.parentElement.style.visibility='hidden';">&times;</span> 
-        <strong>Alert!</strong> 
+        <span class="closebtn"
+            onclick="this.style.visibility='hidden'; this.parentElement.style.visibility='hidden';">&times;</span>
+        <strong>Alert!</strong>
         <span id=dataType></span> gone below
         <span id=minval></span>.
-      </div>
-    
+    </div>
+
+    <div class="login modalcls" id="login">
+        <div class="login-header">
+            <div class="title">Authorize Command</div>
+        </div>
+        <div class="login-form">
+            <form action="/water-the-plant" id="form" method="post" name="form" class="form">
+                <!-- onsubmit="waterThePlant()"  -->
+                <div class="form-input">
+                    <input id="username" name="username" placeholder="Username" type="text" required />
+                </div>
+                <div class="form-input">
+                    <input id="password" name="password" placeholder="Password" type="password" required />
+                </div>
+                <div class="creds-error" id="creds-error">
+                    <text>Incorrect username or password</text>
+                </div>
+                <div class="confirm-water-the-plant">
+                    <input type="submit" id="confirm-water-the-plant" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="success-message" id="success-message">
+        <span class="closebtn"
+            onclick="this.style.visibility='hidden'; this.parentElement.style.visibility='hidden';">&times;</span>
+        <strong>Watering the plant was successful!</strong>
+    </div>
+
+    <!-- Popup Div Ends Here -->
+    <div id="overlay"></div>
+
     <h4 class="flexHeader">
         <span style="display: none;">
             <span id="deviceCount" style="background-color:#f1f1f1">0 devices</span>
@@ -45,10 +78,11 @@
             <div class="column">
                 <div class="card">
                     <h5 class="text" style="display: none;">Plant Data </h5><br>
-                    <img src="images\Plant1.jpg" ><br>
+                    <img src="images\Plant1.jpg"><br>
                     <h6 id="moistureid" style="display: none;">Moisture:</h6><br>
                     <h6 id="luminosityid" style="display: none;">Luminosity: </h6><br>
-                    <button id="water-the-plant" type="button" class="btn btn-primary">Water the Plant</button>
+                    <button data-modal-target="#login" id="water-the-plant" type="button" class="btn btn-primary">Water
+                        the Plant</button>
                 </div>
             </div>
         </div>

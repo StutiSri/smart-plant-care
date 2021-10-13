@@ -38,6 +38,7 @@ console.log(`Using target device [${targetDevice}]`);
 
 // Redirect requests to the public subdirectory to the root
 const app = express();
+app.use(express.json()) 
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use((req, res /* , next */) => {
 //   res.redirect('/');
@@ -48,6 +49,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/water-the-plant', (req, res) => {
+  var loginCreds = req.body;
+  console.log("loginCreds", loginCreds)
+  if (loginCreds.username != "admin" || loginCreds.password != "plantcare"){
+    res.status(401)
+          .send({message: "Incorrect username or password"});
+    return;
+  }
   // publishCommandToWaterThePlant(iotHubConnectionString, targetDevice);
   var serviceClient = Client.fromConnectionString(iotHubConnectionString);
   serviceClient.open(function (err) {
