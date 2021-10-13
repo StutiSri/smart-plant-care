@@ -57,7 +57,8 @@
     },
     "variables": {
         "appServicePlanPortalName": "[concat('ASP-', parameters('webAppName'), '-', parameters('sku'))]",
-        "repoUrl": "https://dev.azure.com/Hackathon2k21/Plant-Iot/_git/Plant-Iot",
+        "repoUrl": "https://github.com/StutiSri/smart-plant-care.git",
+        // "repoUrl": "https://dev.azure.com/Hackathon2k21/Plant-Iot/_git/Plant-Iot",
         "linuxFxVersion": "NODE|14-lts",
         "consumerGroupName": "sensor-data-consumer"
     },
