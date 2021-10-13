@@ -50,7 +50,6 @@ app.get('/', (req, res) => {
 
 app.post('/water-the-plant', (req, res) => {
   var loginCreds = req.body;
-  console.log("loginCreds", loginCreds)
   if (loginCreds.username != "admin" || loginCreds.password != "plantcare"){
     res.status(401)
           .send({message: "Incorrect username or password"});

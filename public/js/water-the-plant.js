@@ -1,14 +1,8 @@
-console.log('Client-side code running');
-
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
 const overlay = document.getElementById('overlay');
 
-console.log("openModalButtons, " + openModalButtons[0])
-
 openModalButtons.forEach(button => {
-  console.log("button", button.dataset.modalTarget)
   button.addEventListener('click', function (e) {
-    console.log('Opening modal');
     const modal = document.querySelector(button.dataset.modalTarget)
     openModal(modal);
   })
@@ -25,8 +19,6 @@ const confirmButton = document.getElementById('form');
 confirmButton.addEventListener('submit', function (e) {
   e.preventDefault();
   var url = $(this).closest('form').attr('action');
-  console.log('Initiating command to water the plant');
-
   const incorrectCredsError = document.getElementById('creds-error');
   incorrectCredsError.classList.remove('active')
 
@@ -45,7 +37,6 @@ confirmButton.addEventListener('submit', function (e) {
   })
     .then(function (response) {
       if (response.ok) {
-        console.log('Command initiation was a success');
         const modal = confirmButton.closest('.modalcls')
         closeModal(modal)
         const successMessage = document.querySelector('.success-message')
@@ -63,14 +54,12 @@ confirmButton.addEventListener('submit', function (e) {
 });
 
 function openModal(modal) {
-  console.log("modal", modal)
   if (modal == null) return;
   modal.classList.add('active');
   overlay.classList.add('active');
 }
 
 function closeModal(modal) {
-  console.log("closing", modal)
   if (modal == null) return;
   modal.classList.remove('active');
   overlay.classList.remove('active');
