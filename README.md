@@ -59,7 +59,7 @@ deployment/deploy.sh --subscriptionId "<subscription id>" --rg-name "<new resour
 ```
 3. Note the displayed connection string it will be required for integration with PI in Step 7
 
-4. Navigate to the URL - https://<Web app name used in the above command>.azurewebsites.net/. It should be up an running, saying that the PI is offline.
+4. Navigate to the URL - https://\<web app name used in the above command>.azurewebsites.net/. It should be up an running, saying that the PI is offline.
 
 5. SSH into your raspberry pi and run the following commands
 
@@ -78,7 +78,7 @@ vi .bashrc or nano .bashrc
 ```
 export IOTHUB_DEVICE_SECURITY_TYPE="connectionString"
 export IOTHUB_DEVICE_CONNECTION_STRING="<connection string that was exposed as output of infra deployment>"
-#TODO: Add the python command to deploy the python script
+python3 PythonScripts/plant-health-monitor.py
 ```
 
 8. Reboot the PI
@@ -90,7 +90,7 @@ export IOTHUB_DEVICE_CONNECTION_STRING="<connection string that was exposed as o
     - Use the creds - admin and plantcare when asked for Authorization
     - The pump should water your plant for 5 seconds.
 
-NOTE: If required, you can check the logs at - https://<Web app name>.scm.azurewebsites.net/api/logstream
+NOTE: If required, you can check the logs at - https://\<web app name>.scm.azurewebsites.net/api/logstream
 
 ## Local deployment for development
 
