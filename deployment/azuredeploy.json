@@ -49,7 +49,13 @@
         },
         "branchName": {
             "type": "string",
-            "defaultValue": "main",
+            "defaultValue": "master",
+            "metadata": {
+                "description": "Branch of the project to be used"
+            }
+        },
+        "targetDevice": {
+            "type": "string",
             "metadata": {
                 "description": "Branch of the project to be used"
             }
@@ -102,7 +108,7 @@
             "apiVersion": "2021-03-31",
             "name": "[toLower(concat(parameters('iotHubName'), '/', 'events', '/', variables('consumerGroupName')))]",
             "properties": {
-                "name": "cg1"
+                "name": "[variables('consumerGroupName')]"
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Devices/IotHubs', parameters('iotHubName'))]"
@@ -135,29 +141,11 @@
                 "siteConfig": {
                     "linuxFxVersion": "[variables('linuxFxVersion')]"
                 }
-                // ,
-                // "resources": [
-                //     {
-                //         // "condition": "[contains(variables('repoUrl'),'http')]",
-                //         "type": "sourcecontrols",
-                //         "apiVersion": "2021-02-01",
-                //         "name": "web",
-                //         "location": "[parameters('location')]",
-                //         "dependsOn": [
-                //             "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
-                //         ],
-                //         "properties": {
-                //             "repoUrl": "[variables('repoUrl')]",
-                //             "branch": "[parameters('branchName')]",
-                //             "isManualIntegration": true
-                //         }
-                //     }
-                // ]
             }
         },
         {
             "type": "Microsoft.Web/sites/sourcecontrols",
-            "apiVersion": "2021-02-01",
+            "apiVersion": "2020-12-01",
             "name": "[concat(parameters('webAppName'), '/', 'web')]",
             "location": "[parameters('location')]",
             "dependsOn": [
@@ -171,7 +159,7 @@
         },
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
-            "apiVersion": "2021-01-15",
+            "apiVersion": "2020-12-01",
             "name": "[concat(parameters('webAppName'), '/', parameters('webAppName'), '.azurewebsites.net')]",
             "location": "East US 2",
             "dependsOn": [
@@ -185,7 +173,7 @@
         {
             "name": "[concat(parameters('webAppName'), '/', 'appsettings')]",
             "type": "Microsoft.Web/sites/config",
-            "apiVersion": "2019-08-01",
+            "apiVersion": "2020-09-01",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
             ],
@@ -193,9 +181,9 @@
                 "displayName": "WebAppSettings"
             },
             "properties": {
-                "IotHubConnectionString": "[concat('Endpoint=', reference(resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.endpoint, ';SharedAccessKeyName=service;SharedAccessKey=', listKeys(resourceId('Microsoft.Devices/IotHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).value[0].primaryKey, ';EntityPath=', reference(resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.path, ';HostName=', reference(resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).hostName)]",
-                "EventHubConsumerGroup": "variables('consumerGroupName')",
-                "TargetDevice": "parameters('targetDevice')"
+                "IotHubConnectionString": "[concat('Endpoint=', reference(resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.endpoint, ';SharedAccessKeyName=service;SharedAccessKey=', listKeys(resourceId('Microsoft.Devices/IotHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).value[1].primaryKey, ';EntityPath=', reference(resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).eventHubEndpoints.events.path, ';HostName=', reference(resourceId('Microsoft.Devices/IoTHubs', parameters('iotHubName')), providers('Microsoft.Devices', 'IoTHubs').apiVersions[0]).hostName)]",
+                "EventHubConsumerGroup": "[variables('consumerGroupName')]",
+                "TargetDevice": "[parameters('targetDevice')]"
             }
         }
     ]
