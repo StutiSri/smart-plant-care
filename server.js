@@ -10,16 +10,14 @@ const EventHubReader = require('./scripts/event-hub-reader.js');
 const CommandPublisher = require('./scripts/command-publisher.js');
 const { publishCommandToWaterThePlant } = require('./scripts/command-publisher.js');
 
-// const iotHubConnectionString = process.env.IotHubConnectionString
-const iotHubConnectionString = "HostName=hackathon-pi-plant-iot.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=zwhyXGztiMhst5RNdexLWCA6+aNlqTafknw1Z0oiWP8=";
+const iotHubConnectionString = process.env.IotHubConnectionString
 if (!iotHubConnectionString) {
   console.error(`Environment variable IotHubConnectionString must be specified.`);
   return;
 }
 console.log(`Using IoT Hub connection string [${iotHubConnectionString}]`);
 
-// const eventHubConsumerGroup = process.env.EventHubConsumerGroup;
-const eventHubConsumerGroup = "plan-iot-consumer";
+const eventHubConsumerGroup = process.env.EventHubConsumerGroup;
 console.log(eventHubConsumerGroup);
 if (!eventHubConsumerGroup) {
   console.error(`Environment variable EventHubConsumerGroup must be specified.`);
@@ -27,8 +25,7 @@ if (!eventHubConsumerGroup) {
 }
 console.log(`Using event hub consumer group [${eventHubConsumerGroup}]`);
 
-// const targetDevice = process.env.TargetDevice;
-const targetDevice = "hack-plant-rasp-device"
+const targetDevice = process.env.TargetDevice;
 console.log(targetDevice);
 if (!targetDevice) {
   console.error(`Environment variable TargetDevice must be specified.`);
@@ -40,9 +37,6 @@ console.log(`Using target device [${targetDevice}]`);
 const app = express();
 app.use(express.json()) 
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use((req, res /* , next */) => {
-//   res.redirect('/');
-// });
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
