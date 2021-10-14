@@ -1,0 +1,14 @@
+# # ############ USAGE ############ #
+#
+# deployment/deploy.sh \
+#            --subscriptionId <Azure Subscription Id> \
+#            --rg-name <New resource group that will be created and house all the resources> \
+#            --location <Location where the resources will be deployed> \
+#            --iotHubName <Name of the IOT Hub> \
+#            --webAppName <Name of the webapp, this will be used as DNS name as well> \
+#            [--branchName <Optional branch name to deploy the code from, default is master>] \
+#            --targetDevice <Name of the Iot device that will be added to the IOT Hub> \
+#            --help <Prints the above contents> \
+# 
+# 
+# # ############ ##### ############ #
